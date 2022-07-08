@@ -1,11 +1,14 @@
 {
-    "name": "alikhedmati/laravel-otp-auth",
-    "description": "Laravel OTP Auth Integration.",
+    "name": "alikhedmati/laravel-otp",
+    "description": "Laravel OTP Integration.",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Alikhedmati\\OtpAuth\\": "src/"
-        }
+            "Alikhedmati\\Otp\\": "src/"
+        },
+        "files": [
+            "src/Helpers/helpers.php"
+        ]
     },
     "authors": [
         {
@@ -15,19 +18,16 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": "^8.1",
-        "laravel/framework": "^v9.19",
-        "laravel/sanctum": "*",
-        "illuminate/support": "^9.19",
-        "alikhedmati/api-response": "*"
+        "php": "^8",
+        "laravel/framework": "^v9"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Alikhedmati\\OtpAuth\\OtpAuthServiceProvider"
+                "Alikhedmati\\Otp\\OtpServiceProvider"
             ],
             "aliases": {
-                "OtpAuth": "Alikhedmati\\OtpAuth\\Facades\\OtpAuth"
+                "Otp": "Alikhedmati\\Otp\\Facades\\Otp"
             }
         }
     }

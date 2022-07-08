@@ -4,7 +4,7 @@ namespace Alikhedmati\OtpAuth\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class OtpAuth extends Facade
+class Otp extends Facade
 {
     /**
      * @return string
@@ -12,6 +12,6 @@ class OtpAuth extends Facade
 
     protected static function getFacadeAccessor(): string
     {
-        return OtpAuth::class;
+        return;
     }
 }

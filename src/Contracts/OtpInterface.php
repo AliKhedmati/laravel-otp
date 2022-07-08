@@ -2,7 +2,7 @@
 
 namespace Alikhedmati\OtpAuth\Contracts;
 
-interface OtpAuthInterface
+interface OtpInterface
 {
 
 }
