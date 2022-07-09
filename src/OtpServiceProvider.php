@@ -5,7 +5,7 @@ namespace Alikhedmati\Otp;
 use Alikhedmati\Otp\Contracts\OtpInterface;
 use Illuminate\Support\ServiceProvider;
 
-class OTPServiceProvider extends ServiceProvider
+class OtpServiceProvider extends ServiceProvider
 {
     public function boot()
     {
