@@ -79,7 +79,7 @@ class Otp implements OtpInterface
 
             if (now()->lessThan($otp->expires_at)){
 
-                throw new OtpException(__('otp.wait', [
+                throw new OtpException(trans('otp.wait', [
                     'seconds'   =>  now()->diffInSeconds($otp->expires_at)
                 ]));
 
@@ -121,7 +121,7 @@ class Otp implements OtpInterface
 
         if (!$otp){
 
-            throw new OtpException(__('otp.failed'));
+            throw new OtpException(trans('otp.failed'));
 
         }
 
@@ -133,7 +133,7 @@ class Otp implements OtpInterface
 
         if (now()->greaterThan($otp->expires_at)){
 
-            throw new OtpException(__('otp.expired'));
+            throw new OtpException(trans('otp.expired'));
 
         }
 
@@ -143,7 +143,7 @@ class Otp implements OtpInterface
 
         if ($otp->otp != $token){
 
-            throw new OtpException(__('otp.not-valid'));
+            throw new OtpException(trans('otp.not-valid'));
 
         }
     }
