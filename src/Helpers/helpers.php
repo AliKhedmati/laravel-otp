@@ -1,6 +1,6 @@
 <?php
 
-use Alikhedmati\OtpAuth\Otp;
+use Alikhedmati\Otp\Otp;
 
 function otp(): Otp
 {

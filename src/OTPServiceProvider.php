@@ -1,8 +1,8 @@
 <?php
 
-namespace Alikhedmati\OtpAuth;
+namespace Alikhedmati\Otp;
 
-use Alikhedmati\OtpAuth\Contracts\OtpInterface;
+use Alikhedmati\Otp\Contracts\OtpInterface;
 use Illuminate\Support\ServiceProvider;
 
 class OTPServiceProvider extends ServiceProvider

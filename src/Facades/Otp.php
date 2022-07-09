@@ -1,6 +1,6 @@
 <?php
 
-namespace Alikhedmati\OtpAuth\Facades;
+namespace Alikhedmati\Otp\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
