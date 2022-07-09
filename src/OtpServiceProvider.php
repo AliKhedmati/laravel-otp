@@ -9,7 +9,7 @@ class OtpServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__ . 'lang', 'otp');
+        $this->loadTranslationsFrom(__DIR__ . '/lang', 'otp');
 
         $this->offerPublishing();
     }
