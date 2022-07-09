@@ -9,6 +9,8 @@ class OTPServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $this->loadTranslationsFrom(__DIR__ . 'lang', 'otp');
+
         $this->offerPublishing();
     }
 
@@ -17,6 +19,10 @@ class OTPServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ .'config/otp.php'   =>   config_path('otp.php')
         ], 'config');
+
+        $this->publishes([
+            __DIR__ . 'lang'    =>  $this->app->langPath('vendor/otp')
+        ]);
     }
 
     public function register()

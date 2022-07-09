@@ -12,7 +12,7 @@ interface OtpInterface
     
     public function set();
 
-    public function verify();
+    public function verify(int $token);
     
     public function generate();
 }
