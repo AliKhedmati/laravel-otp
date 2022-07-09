@@ -12,6 +12,6 @@ class Otp extends Facade
 
     protected static function getFacadeAccessor(): string
     {
-        return;
+        return \Alikhedmati\Otp\Otp::class;
     }
 }
