@@ -15,9 +15,6 @@ class OtpServiceProvider extends ServiceProvider
             __DIR__ . '/../config/otp.php' =>   config_path('otp.php')
         ], 'config');
 
-        $this->publishes([
-            __DIR__ . '/../lang' =>  $this->app->langPath('vendor/laravel-otp')
-        ]);
     }
 
     public function register()
