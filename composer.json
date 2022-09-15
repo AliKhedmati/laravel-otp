@@ -16,7 +16,7 @@
             "email": "ali@khedmati.ir"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "require": {
         "php": "^8.1",
         "laravel/framework": "^v9"
