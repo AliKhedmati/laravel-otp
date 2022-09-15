@@ -29,7 +29,7 @@ class Otp implements OtpInterface
      * @return $this
      */
 
-    public function key(string $key): static
+    public function setKey(string $key): static
     {
         $this->key = $key;
 
@@ -37,11 +37,20 @@ class Otp implements OtpInterface
     }
 
     /**
+     * @return string
+     */
+
+    public function getKey(): string
+    {
+        return $this->key;
+    }
+
+    /**
      * @param int $length
      * @return $this
      */
 
-    public function length(int $length): static
+    public function setLength(int $length): static
     {
         $this->length = $length;
 
@@ -49,15 +58,29 @@ class Otp implements OtpInterface
     }
 
     /**
+     * @return int
+     */
+
+    public function getLength(): int
+    {
+        return $this->length;
+    }
+
+    /**
      * @param int $seconds
      * @return $this
      */
 
-    public function expiresAfter(int $seconds): static
+    public function setExpiresAfter(int $seconds): static
     {
         $this->expiresAt = now()->addSeconds($seconds);
 
         return $this;
+    }
+
+    public function getExpiresAt(): Carbon
+    {
+        return $this->expiresAt;
     }
 
     /**
@@ -65,7 +88,7 @@ class Otp implements OtpInterface
      * @throws OtpException
      */
 
-    public function set(): int
+    public function createAndRemember(): int
     {
         /**
          * Check Redis and handle Rate-Limiter.
@@ -97,10 +120,10 @@ class Otp implements OtpInterface
          * Store in Redis.
          */
 
-        Redis::set('otp-'. $this->key, json_encode([
+        Redis::set('otp:'. $this->key, json_encode([
             'expires_at'   =>  $this->expiresAt,
             'otp'   =>  $otp
-        ]));
+        ]), $this->expiresAt);
 
         return $otp;
     }
@@ -117,7 +140,7 @@ class Otp implements OtpInterface
          * Seek Redis.
          */
 
-        $otp = Redis::get('otp-'. $this->key);
+        $otp = Redis::get('otp:'. $this->key);
 
         if (!$otp){
 

@@ -9,7 +9,7 @@ class OtpServiceProvider extends ServiceProvider
 {
     public function boot()
     {
-        $this->loadTranslationsFrom(__DIR__ . '/lang', 'otp');
+        $this->loadTranslationsFrom(__DIR__ . '/../lang', 'otp');
 
         $this->offerPublishing();
     }
@@ -17,11 +17,11 @@ class OtpServiceProvider extends ServiceProvider
     protected function offerPublishing()
     {
         $this->publishes([
-            __DIR__ . '/config/otp.php'   =>   config_path('otp.php')
+            __DIR__ . '/../config/otp.php' =>   config_path('otp.php')
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/lang'    =>  $this->app->langPath('vendor/otp')
+            __DIR__ . '/../lang' =>  $this->app->langPath('vendor/otp')
         ]);
     }
 

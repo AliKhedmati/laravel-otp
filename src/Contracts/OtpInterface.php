@@ -4,15 +4,21 @@ namespace Alikhedmati\Otp\Contracts;
 
 interface OtpInterface
 {
-    public function key(string $key);
-    
-    public function length(int $length);
+    public function setKey(string $key);
 
-    public function expiresAfter(int $seconds);
-    
-    public function set();
+    public function getKey(): string;
 
-    public function verify(int $token);
+    public function setLength(int $length);
+
+    public function getLength(): int;
     
-    public function generate();
+    public function setExpiresAfter(int $seconds);
+
+    public function getExpiresAt();
+
+    public function createAndRemember(): int;
+
+    public function verify(int $token): void;
+    
+    public function generate(): int;
 }
