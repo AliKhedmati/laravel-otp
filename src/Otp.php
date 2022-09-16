@@ -4,6 +4,10 @@ namespace Alikhedmati\Otp;
 
 use Alikhedmati\Otp\Contracts\OtpInterface;
 use Alikhedmati\Otp\Exceptions\OtpException;
+use Alikhedmati\Otp\Exceptions\OtpHasExpired;
+use Alikhedmati\Otp\Exceptions\OtpIsInvalid;
+use Alikhedmati\Otp\Exceptions\OtpNotFound;
+use Alikhedmati\Otp\Exceptions\ValidOtpExists;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Redis;
 
@@ -86,6 +90,7 @@ class Otp implements OtpInterface
     /**
      * @return int
      * @throws OtpException
+     * @throws ValidOtpExists
      */
 
     public function createAndRemember(): int
@@ -102,7 +107,7 @@ class Otp implements OtpInterface
 
             if (now()->lessThan($otp->expires_at)){
 
-                throw new OtpException(trans('otp::messages.wait', [
+                throw new ValidOtpExists(trans('otp::messages.wait', [
                     'seconds'   =>  now()->diffInSeconds($otp->expires_at)
                 ]));
 
@@ -123,7 +128,7 @@ class Otp implements OtpInterface
         Redis::set('otp:'. $this->key, json_encode([
             'expires_at'   =>  $this->expiresAt,
             'otp'   =>  $otp
-        ]), $this->expiresAt);
+        ]));
 
         return $otp;
     }
@@ -131,7 +136,9 @@ class Otp implements OtpInterface
     /**
      * @param int $token
      * @return void
-     * @throws OtpException
+     * @throws OtpIsInvalid
+     * @throws OtpHasExpired
+     * @throws OtpNotFound
      */
 
     public function verify(int $token): void
@@ -144,7 +151,7 @@ class Otp implements OtpInterface
 
         if (!$otp){
 
-            throw new OtpException(trans('otp::messages.failed'));
+            throw new OtpNotFound(trans('otp::messages.failed'));
 
         }
 
@@ -156,7 +163,7 @@ class Otp implements OtpInterface
 
         if (now()->greaterThan($otp->expires_at)){
 
-            throw new OtpException(trans('otp::messages.expired'));
+            throw new OtpHasExpired(trans('otp::messages.expired'));
 
         }
 
@@ -166,7 +173,7 @@ class Otp implements OtpInterface
 
         if ($otp->otp != $token){
 
-            throw new OtpException(trans('otp::messages.not-valid'));
+            throw new OtpIsInvalid(trans('otp::messages.not-valid'));
 
         }
     }
