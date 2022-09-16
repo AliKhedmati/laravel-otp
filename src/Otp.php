@@ -99,7 +99,7 @@ class Otp implements OtpInterface
          * Check Redis and handle Rate-Limiter.
          */
 
-        $otp = Redis::get('otp-' . $this->key);
+        $otp = Redis::get('otp:' . $this->key);
 
         if ($otp){
 
