@@ -9,6 +9,7 @@ use Alikhedmati\Otp\Exceptions\OtpIsInvalid;
 use Alikhedmati\Otp\Exceptions\OtpNotFound;
 use Alikhedmati\Otp\Exceptions\ValidOtpExists;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Redis;
 
 class Otp implements OtpInterface
@@ -23,9 +24,9 @@ class Otp implements OtpInterface
 
     public function __construct()
     {
-        $this->length = config('otp.length');
+        $this->length = Config::get('otp.length');
 
-        $this->expiresAt = now()->addSeconds(config('otp.expires_after'));
+        $this->expiresAt = Carbon::now()->addSeconds(Config::get('otp.expires_after'));
     }
 
     /**
@@ -77,7 +78,7 @@ class Otp implements OtpInterface
 
     public function setExpiresAfter(int $seconds): static
     {
-        $this->expiresAt = now()->addSeconds($seconds);
+        $this->expiresAt = Carbon::now()->addSeconds($seconds);
 
         return $this;
     }
@@ -105,10 +106,10 @@ class Otp implements OtpInterface
 
             $otp = json_decode($otp);
 
-            if (now()->lessThan($otp->expires_at)){
+            if (Carbon::now()->lessThan($otp->expires_at)){
 
                 throw new ValidOtpExists(trans('otp::messages.wait', [
-                    'seconds'   =>  now()->diffInSeconds($otp->expires_at)
+                    'seconds'   =>  Carbon::now()->diffInSeconds($otp->expires_at)
                 ]));
 
             }
@@ -161,7 +162,7 @@ class Otp implements OtpInterface
          * Validate expiration time.
          */
 
-        if (now()->greaterThan($otp->expires_at)){
+        if (Carbon::now()->greaterThan($otp->expires_at)){
 
             throw new OtpHasExpired(trans('otp::messages.expired'));
 
