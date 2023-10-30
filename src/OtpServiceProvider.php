@@ -7,20 +7,25 @@ use Illuminate\Support\ServiceProvider;
 
 class OtpServiceProvider extends ServiceProvider
 {
-    public function boot()
+    /**
+     * @return void
+     */
+
+    public function boot(): void
     {
         $this->loadTranslationsFrom(__DIR__ . '/../lang', 'otp');
-
         $this->publishes([
-            __DIR__ . '/../config/otp.php' =>   config_path('otp.php')
+            __DIR__ . '/../config/OTP.php' =>   config_path('OTP.php')
         ], 'config');
-
     }
 
-    public function register()
-    {
-        $this->mergeConfigFrom(__DIR__ . '/../config/otp.php', 'otp');
+    /**
+     * @return void
+     */
 
-        $this->app->bind(OtpInterface::class, fn() => new Otp());
+    public function register(): void
+    {
+        $this->mergeConfigFrom(__DIR__ . '/../config/OTP.php', 'otp');
+        $this->app->bind('OTP', fn() => new Otp());
     }
 }
